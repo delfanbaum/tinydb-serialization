@@ -1,4 +1,5 @@
 from datetime import datetime
+from pathlib import Path
 
 from tinydb_serialization import Serializer
 
@@ -11,3 +12,14 @@ class DateTimeSerializer(Serializer):
 
     def decode(self, s):
         return datetime.fromisoformat(s)
+
+
+class PathSerializer(Serializer):
+    """ relative to working directory """
+    OBJ_CLASS = Path
+
+    def encode(self, obj):
+        return str(obj)
+
+    def decode(self, s):
+        return Path(s)
